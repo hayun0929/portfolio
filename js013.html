@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+</head>
+<script>
+
+
+    // fetch('요청할 url')
+    //     .then(res=>res.json())
+    //     .then(function(data){
+    //         console.log(data)
+    //     }).catch(function(error){
+    //     console.log(error);
+    // });
+
+</script>
+<body>
+<div class="card-group container">
+    <div class="card">
+        <img src="https://via.placeholder.com/600" alt="">
+        <div class="card-body">
+            <h5 class="title">Card title</h5>
+            <p>price : 70000</p>
+            <button class="btn btn-danger">주문하기</button>
+        </div>
+    </div>
+    <div class="card">
+        <img src="https://via.placeholder.com/600" alt="">
+        <div class="card-body">
+            <h5 class="title">Card title</h5>
+            <p>price : 70000</p>
+            <button class="btn btn-danger">주문하기</button>
+        </div>
+    </div>
+    <div class="card">
+        <img src="https://via.placeholder.com/600" alt="">
+        <div class="card-body">
+            <h5 class="title">Card title</h5>
+            <p>price : 70000</p>
+            <button class="btn btn-danger">주문하기</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Ajax 요청
+    $.get('https://korea-webtoon-api.herokuapp.com/search?keyword=시니')
+        .done(function (data){
+            //요청이 완료되었을 때 동작 할 코드
+            console.log(data);
+            //webtoon[0] = data.webtoons[0];
+            //webtoon[1]= data.webtoons[4];
+            //webtoon[2]= data.webtoons[8];
+
+            var webtoon = data.webtoons;
+            webtoon.forEach(function (item,i){
+                $('img').eq(i).attr("src",item.img);
+                $('.title').eq(i).html(item.title);
+                $('.author').eq(i).html(item.author);
+
+                $('.title').eq(i).on('click',function(){
+                    $(location).attr('href',item.url);
+                })
+            })
+        }).fail(function(error){
+        //요청이 실패하였을 때 동작 할 코드
+        console.log(error);
+    }).always(function(){
+        //성공여부와 상관없이 무조건 동작할 코드
+        console.log("test");
+    })
+
+    // for(let i=0; i<webtoon.length; i++){
+    // }
+
+    // fetch('요청할 url')
+    //     .then(res=>res.json())
+    //     .then(function(data){
+    //         console.log(data)
+    //     }).catch(function(error){
+    //     console.log(error);
+    // });
+
+</script>
+</body>
+
+</html>
